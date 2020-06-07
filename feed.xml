@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mlech26l.github.io/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mlech26l.github.io/pages/" rel="alternate" type="text/html" /><updated>2020-06-07T03:39:28-05:00</updated><id>https://mlech26l.github.io/pages/feed.xml</id><title type="html">Home</title><subtitle>Personal research blog and webpage</subtitle><entry><title type="html">An Example Markdown Post</title><link href="https://mlech26l.github.io/pages/markdown/2020/01/14/test-markdown-post.html" rel="alternate" type="text/html" title="An Example Markdown Post" /><published>2020-01-14T00:00:00-06:00</published><updated>2020-01-14T00:00:00-06:00</updated><id>https://mlech26l.github.io/pages/markdown/2020/01/14/test-markdown-post</id><content type="html" xml:base="https://mlech26l.github.io/pages/markdown/2020/01/14/test-markdown-post.html">&lt;h1 id=&quot;example-markdown-post&quot;&gt;Example Markdown Post&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mlech26l.github.io/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mlech26l.github.io/pages/" rel="alternate" type="text/html" /><updated>2020-06-07T03:47:59-05:00</updated><id>https://mlech26l.github.io/pages/feed.xml</id><title type="html">Home</title><subtitle>Personal research blog and webpage</subtitle><entry><title type="html">An Example Markdown Post</title><link href="https://mlech26l.github.io/pages/markdown/2020/01/14/test-markdown-post.html" rel="alternate" type="text/html" title="An Example Markdown Post" /><published>2020-01-14T00:00:00-06:00</published><updated>2020-01-14T00:00:00-06:00</updated><id>https://mlech26l.github.io/pages/markdown/2020/01/14/test-markdown-post</id><content type="html" xml:base="https://mlech26l.github.io/pages/markdown/2020/01/14/test-markdown-post.html">&lt;h1 id=&quot;example-markdown-post&quot;&gt;Example Markdown Post&lt;/h1&gt;
 
 &lt;h2 id=&quot;basic-setup&quot;&gt;Basic setup&lt;/h2&gt;
 
@@ -122,7 +122,7 @@ wget https://example.com/cat_photo1.png
 &lt;p&gt;I won the &lt;strong&gt;Distinguished Young Alumnus-Award&lt;/strong&gt; at the  &lt;a href=&quot;http://www.informatik.tuwien.ac.at/studium/studierende/epilog/2017ws&quot;&gt;Epilog&lt;/a&gt;
 for my master thesis &lt;em&gt;Brain-inspired Neural Control&lt;/em&gt;. The award was given by the TU Wien faculty of Informatics and is endowed 1.500 EUR.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/pages/assets/img/distinguished.jpg&quot; alt=&quot;award&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="Award" /><category term="Epilog" /><category term="Distinguished Young Alumnus" /><summary type="html">Example Markdown Post</summary></entry><entry><title type="html">Tikz and Videos</title><link href="https://mlech26l.github.io/pages/2017/11/29/tikz_and_videos.html" rel="alternate" type="text/html" title="Tikz and Videos" /><published>2017-11-29T00:00:00-06:00</published><updated>2017-11-29T00:00:00-06:00</updated><id>https://mlech26l.github.io/pages/2017/11/29/tikz_and_videos</id><content type="html" xml:base="https://mlech26l.github.io/pages/2017/11/29/tikz_and_videos.html">&lt;p&gt;I am a really big fan of &lt;strong&gt;Vector graphics&lt;/strong&gt; and I exhaustively use &lt;a href=&quot;https://en.wikipedia.org/wiki/PGF/TikZ&quot;&gt;Tikz&lt;/a&gt; to draw such.
+&lt;p&gt;&lt;img src=&quot;/pages/images/distinguished.jpg&quot; alt=&quot;award&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="Award" /><category term="Epilog" /><category term="Distinguished Young Alumnus" /><summary type="html">Example Markdown Post</summary></entry><entry><title type="html">Tikz and Videos</title><link href="https://mlech26l.github.io/pages/2017/11/29/tikz_and_videos.html" rel="alternate" type="text/html" title="Tikz and Videos" /><published>2017-11-29T00:00:00-06:00</published><updated>2017-11-29T00:00:00-06:00</updated><id>https://mlech26l.github.io/pages/2017/11/29/tikz_and_videos</id><content type="html" xml:base="https://mlech26l.github.io/pages/2017/11/29/tikz_and_videos.html">&lt;p&gt;I am a really big fan of &lt;strong&gt;Vector graphics&lt;/strong&gt; and I exhaustively use &lt;a href=&quot;https://en.wikipedia.org/wiki/PGF/TikZ&quot;&gt;Tikz&lt;/a&gt; to draw such.
 However, creating videos and cool animations with Tikz and Latex can be a bit messy.
 So I have come up with a simple but effective hack to make generating videos with Latex easier.&lt;/p&gt;
 
@@ -153,7 +153,7 @@ The manual one is created as you would do usually write your Latex image. Howeve
 
 &lt;p&gt;In this case a two nodes are drawn, which colors (&lt;em&gt;\mycolor&lt;/em&gt;) should be animated.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/pages/assets/img/tikz/frame_000.png&quot; alt=&quot;Latex&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/pages/images/tikz/frame_000.png&quot; alt=&quot;Latex&quot; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;filling-the-placeholders&quot;&gt;Filling the placeholders&lt;/h1&gt;
 
@@ -194,7 +194,7 @@ Moreover, the program invokes the Latex compiler to generate a PNG file out of t
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;convert &lt;span class=&quot;nt&quot;&gt;-loop&lt;/span&gt; 0 &lt;span class=&quot;nt&quot;&gt;-delay&lt;/span&gt; 2 sequence/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.png animation.gif&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;&lt;img src=&quot;/pages/assets/img/tikz/animation.gif&quot; alt=&quot;Latex&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/pages/images/tikz/animation.gif&quot; alt=&quot;Latex&quot; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;remarks&quot;&gt;Remarks&lt;/h1&gt;
 &lt;ul&gt;
