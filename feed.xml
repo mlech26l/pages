@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mlech26l.github.io/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mlech26l.github.io/pages/" rel="alternate" type="text/html" /><updated>2020-06-07T03:29:14-05:00</updated><id>https://mlech26l.github.io/pages/feed.xml</id><title type="html">Home</title><subtitle>Personal research blog and webpage</subtitle><entry><title type="html">An Example Markdown Post</title><link href="https://mlech26l.github.io/pages/markdown/2020/01/14/test-markdown-post.html" rel="alternate" type="text/html" title="An Example Markdown Post" /><published>2020-01-14T00:00:00-06:00</published><updated>2020-01-14T00:00:00-06:00</updated><id>https://mlech26l.github.io/pages/markdown/2020/01/14/test-markdown-post</id><content type="html" xml:base="https://mlech26l.github.io/pages/markdown/2020/01/14/test-markdown-post.html">&lt;h1 id=&quot;example-markdown-post&quot;&gt;Example Markdown Post&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mlech26l.github.io/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mlech26l.github.io/pages/" rel="alternate" type="text/html" /><updated>2020-06-07T03:39:28-05:00</updated><id>https://mlech26l.github.io/pages/feed.xml</id><title type="html">Home</title><subtitle>Personal research blog and webpage</subtitle><entry><title type="html">An Example Markdown Post</title><link href="https://mlech26l.github.io/pages/markdown/2020/01/14/test-markdown-post.html" rel="alternate" type="text/html" title="An Example Markdown Post" /><published>2020-01-14T00:00:00-06:00</published><updated>2020-01-14T00:00:00-06:00</updated><id>https://mlech26l.github.io/pages/markdown/2020/01/14/test-markdown-post</id><content type="html" xml:base="https://mlech26l.github.io/pages/markdown/2020/01/14/test-markdown-post.html">&lt;h1 id=&quot;example-markdown-post&quot;&gt;Example Markdown Post&lt;/h1&gt;
 
 &lt;h2 id=&quot;basic-setup&quot;&gt;Basic setup&lt;/h2&gt;
 
@@ -117,4 +117,88 @@ wget https://example.com/cat_photo1.png
       &lt;p&gt;This is the footnote. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name></name></author><summary type="html">Example Markdown Post</summary></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><summary type="html">Example Markdown Post</summary></entry><entry><title type="html">Distinguished Young Alumnus-Award</title><link href="https://mlech26l.github.io/pages/2018/01/20/epilog.html" rel="alternate" type="text/html" title="Distinguished Young Alumnus-Award" /><published>2018-01-20T00:00:00-06:00</published><updated>2018-01-20T00:00:00-06:00</updated><id>https://mlech26l.github.io/pages/2018/01/20/epilog</id><content type="html" xml:base="https://mlech26l.github.io/pages/2018/01/20/epilog.html">&lt;h1 id=&quot;example-markdown-post&quot;&gt;Example Markdown Post&lt;/h1&gt;
+
+&lt;p&gt;I won the &lt;strong&gt;Distinguished Young Alumnus-Award&lt;/strong&gt; at the  &lt;a href=&quot;http://www.informatik.tuwien.ac.at/studium/studierende/epilog/2017ws&quot;&gt;Epilog&lt;/a&gt;
+for my master thesis &lt;em&gt;Brain-inspired Neural Control&lt;/em&gt;. The award was given by the TU Wien faculty of Informatics and is endowed 1.500 EUR.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/pages/assets/img/distinguished.jpg&quot; alt=&quot;award&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="Award" /><category term="Epilog" /><category term="Distinguished Young Alumnus" /><summary type="html">Example Markdown Post</summary></entry><entry><title type="html">Tikz and Videos</title><link href="https://mlech26l.github.io/pages/2017/11/29/tikz_and_videos.html" rel="alternate" type="text/html" title="Tikz and Videos" /><published>2017-11-29T00:00:00-06:00</published><updated>2017-11-29T00:00:00-06:00</updated><id>https://mlech26l.github.io/pages/2017/11/29/tikz_and_videos</id><content type="html" xml:base="https://mlech26l.github.io/pages/2017/11/29/tikz_and_videos.html">&lt;p&gt;I am a really big fan of &lt;strong&gt;Vector graphics&lt;/strong&gt; and I exhaustively use &lt;a href=&quot;https://en.wikipedia.org/wiki/PGF/TikZ&quot;&gt;Tikz&lt;/a&gt; to draw such.
+However, creating videos and cool animations with Tikz and Latex can be a bit messy.
+So I have come up with a simple but effective hack to make generating videos with Latex easier.&lt;/p&gt;
+
+&lt;p&gt;The key idea is to have two separated Latex files: One that is manually created and stays the same over the whole video, and one that is procedurally generated for each frame.
+The manual one is created as you would do usually write your Latex image. However, all variables that are dynamic throughout the video (e.g. color, position, opacity, etc.) are defined by placeholders. And, guess what, the second Latex file (the procedurally generated one) then fills all the placeholder for each frame.&lt;/p&gt;
+
+&lt;h1 id=&quot;drawing-a-frame&quot;&gt;Drawing a frame&lt;/h1&gt;
+&lt;p&gt;My starting point is the manually designed Latex file, that is based on the following scheme:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tex&quot; data-lang=&quot;tex&quot;&gt;&lt;span class=&quot;k&quot;&gt;\documentclass&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[border=0cm,convert={outext=.png}]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;standalone&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;% Documentclass to directly create a PNG-files when invoking 'pdflatex'&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;xcolor&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;tikz&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;% Load dynamic variables&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;dynamic.tex&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;\begin{document}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;\begin{tikzpicture}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;% My Latex code&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\node&lt;/span&gt; (start) at (0,0) [draw,fill=&lt;span class=&quot;k&quot;&gt;\mycolorsin&lt;/span&gt;] &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;A&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;;
+&lt;span class=&quot;k&quot;&gt;\node&lt;/span&gt; (start) at (2,0) [draw,fill=&lt;span class=&quot;k&quot;&gt;\mycolorcos&lt;/span&gt;] &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;B&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;;
+
+&lt;span class=&quot;nt&quot;&gt;\end{tikzpicture}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;\end{document}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;In this case a two nodes are drawn, which colors (&lt;em&gt;\mycolor&lt;/em&gt;) should be animated.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/pages/assets/img/tikz/frame_000.png&quot; alt=&quot;Latex&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;filling-the-placeholders&quot;&gt;Filling the placeholders&lt;/h1&gt;
+
+&lt;p&gt;In the next step I will create a simple &lt;em&gt;python&lt;/em&gt; script that generates the &lt;em&gt;dynamic.tex&lt;/em&gt; file and fills all the dynamic placeholder variables.
+Moreover, the program invokes the Latex compiler to generate a PNG file out of the code and stores it in a directory.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;subprocess&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;shutil&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Create directory for the frames
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'sequence'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;makedirs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'sequence'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Example data for animation in range [0,100]
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;linspace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sin_seq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;50.0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;50.0&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cos_seq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;50.0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;50.0&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Loop over each frame
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# Create file with for dynamic variables
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;dynamic_file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'dynamic.tex'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'w'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dynamic_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;newcommand{&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;mycolorsin}{green!'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sin_seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'!white}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dynamic_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;newcommand{&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;mycolorcos}{red!'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cos_seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'!white}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dynamic_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# Create png with pdflatex
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'pdflatex -shell-escape -interaction=nonstopmode example.tex'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# Move frame into directory with frames
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;shutil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;move&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'example.png'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'sequence/frame_'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zfill&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'.png'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Finally, all I have to do is to animate the frames with &lt;a href=&quot;https://en.wikipedia.org/wiki/ImageMagick&quot;&gt;ImageMagick&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;convert &lt;span class=&quot;nt&quot;&gt;-loop&lt;/span&gt; 0 &lt;span class=&quot;nt&quot;&gt;-delay&lt;/span&gt; 2 sequence/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.png animation.gif&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;/pages/assets/img/tikz/animation.gif&quot; alt=&quot;Latex&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;remarks&quot;&gt;Remarks&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;Instead of using &lt;em&gt;\newcommand&lt;/em&gt; for each placeholder, it might be more convinient to use &lt;em&gt;tikzset&lt;/em&gt; or &lt;em&gt;tikzstyle&lt;/em&gt; (&lt;a href=&quot;https://tex.stackexchange.com/questions/52372/should-tikzset-or-tikzstyle-be-used-to-define-tikz-styles&quot;&gt;See here&lt;/a&gt;) to define the dynamic variables&lt;/li&gt;
+  &lt;li&gt;If you want to create a video instead of an animation (mp4 instead of gif), you can easily do this with &lt;a href=&quot;https://en.wikipedia.org/wiki/FFmpeg&quot;&gt;ffmpeg&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Technically the gif animation is not a vector graphics anymore. However by tuning the &lt;em&gt;pdf-to-png&lt;/em&gt; conversion density parameter, one can create an animation with an arbitrary high resolution.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="Tikz" /><category term="Latex" /><category term="Animation" /><category term="Video" /><summary type="html">I am a really big fan of Vector graphics and I exhaustively use Tikz to draw such. However, creating videos and cool animations with Tikz and Latex can be a bit messy. So I have come up with a simple but effective hack to make generating videos with Latex easier.</summary></entry></feed>

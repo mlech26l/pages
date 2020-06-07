@@ -11,6 +11,28 @@
         
     
   
+    
+        ,"post1": {
+            "title": "Distinguished Young Alumnus-Award",
+            "content": "Example Markdown Post . I won the Distinguished Young Alumnus-Award at the Epilog for my master thesis Brain-inspired Neural Control. The award was given by the TU Wien faculty of Informatics and is endowed 1.500 EUR. . .",
+            "url": "https://mlech26l.github.io/pages/2018/01/20/epilog.html",
+            "relUrl": "/2018/01/20/epilog.html",
+            "date": " • Jan 20, 2018"
+        }
+        
+    
+  
+    
+        ,"post2": {
+            "title": "Tikz and Videos",
+            "content": "I am a really big fan of Vector graphics and I exhaustively use Tikz to draw such. However, creating videos and cool animations with Tikz and Latex can be a bit messy. So I have come up with a simple but effective hack to make generating videos with Latex easier. . The key idea is to have two separated Latex files: One that is manually created and stays the same over the whole video, and one that is procedurally generated for each frame. The manual one is created as you would do usually write your Latex image. However, all variables that are dynamic throughout the video (e.g. color, position, opacity, etc.) are defined by placeholders. And, guess what, the second Latex file (the procedurally generated one) then fills all the placeholder for each frame. . Drawing a frame . My starting point is the manually designed Latex file, that is based on the following scheme: . documentclass[border=0cm,convert={outext=.png}]{standalone} % Documentclass to directly create a PNG-files when invoking &#39;pdflatex&#39; usepackage{xcolor} usepackage{tikz} % Load dynamic variables input{dynamic.tex} begin{document} begin{tikzpicture} % My Latex code node (start) at (0,0) [draw,fill= mycolorsin] {A}; node (start) at (2,0) [draw,fill= mycolorcos] {B}; end{tikzpicture} end{document} . In this case a two nodes are drawn, which colors ( mycolor) should be animated. . . Filling the placeholders . In the next step I will create a simple python script that generates the dynamic.tex file and fills all the dynamic placeholder variables. Moreover, the program invokes the Latex compiler to generate a PNG file out of the code and stores it in a directory. . import numpy as np import time import os import subprocess import shutil # Create directory for the frames if not os.path.exists(&#39;sequence&#39;): os.makedirs(&#39;sequence&#39;) # Example data for animation in range [0,100] t = np.linspace(0,2*np.pi,100) sin_seq = 50.0*np.sin(t)+50.0 cos_seq = 50.0*np.cos(t)+50.0 # Loop over each frame for i in range(100): # Create file with for dynamic variables dynamic_file = open(&#39;dynamic.tex&#39;,&#39;w&#39;) dynamic_file.write(&#39; newcommand{ mycolorsin}{green!&#39;+str(int(round(sin_seq[i])))+&#39;!white} n&#39;) dynamic_file.write(&#39; newcommand{ mycolorcos}{red!&#39;+str(int(round(cos_seq[i])))+&#39;!white} n&#39;) dynamic_file.close() # Create png with pdflatex os.system(&#39;pdflatex -shell-escape -interaction=nonstopmode example.tex&#39;) # Move frame into directory with frames shutil.move(&#39;example.png&#39;, &#39;sequence/frame_&#39;+str(i).zfill(3)+&#39;.png&#39;) . Finally, all I have to do is to animate the frames with ImageMagick . convert -loop 0 -delay 2 sequence/*.png animation.gif . . Remarks . Instead of using newcommand for each placeholder, it might be more convinient to use tikzset or tikzstyle (See here) to define the dynamic variables | If you want to create a video instead of an animation (mp4 instead of gif), you can easily do this with ffmpeg | Technically the gif animation is not a vector graphics anymore. However by tuning the pdf-to-png conversion density parameter, one can create an animation with an arbitrary high resolution. | .",
+            "url": "https://mlech26l.github.io/pages/2017/11/29/tikz_and_videos.html",
+            "relUrl": "/2017/11/29/tikz_and_videos.html",
+            "date": " • Nov 29, 2017"
+        }
+        
+    
+  
 
   
   
@@ -18,7 +40,7 @@
   
       ,"page1": {
           "title": "About Me",
-          "content": ". I am a PhD candidate at IST Austria at the research group of Tom Henzinger. My research topics is the intersection between Machine Learning, formal Verification, and Robotics. . My publications so far: . ICML (2020) The Natural Lottery Ticket Winner: Reinforcement Learning with Ordinary Neural Circuits | ICLR (2020) An SMT Theory of Fixed-Point Arithmetic | IJCAR (2020) Learning Representations for binary classification without backpropagation | ICRA (2020) Gershgorin Loss Stabilizes the Recurrent Neural Network Compartment of an End-To-End Robot Learning Scheme | TACAS (2020) How Many Bits Does it Take to Quantize Your Neural Network? | ICRA (2019) Designing Worm-inspired Neural Networks for Interpretable Robotic Control | .",
+          "content": ". I am a PhD candidate at IST Austria at the research group of Tom Henzinger. My research topics is the intersection between Machine Learning, formal Verification, and Robotics. . My publications so far: . ICML (2020) The Natural Lottery Ticket Winner: Reinforcement Learning with Ordinary Neural Circuits | IJCAR (2020) An SMT Theory of Fixed-Point Arithmetic | ICLR (2020) Learning Representations for binary classification without backpropagation | ICRA (2020) Gershgorin Loss Stabilizes the Recurrent Neural Network Compartment of an End-To-End Robot Learning Scheme | TACAS (2020) How Many Bits Does it Take to Quantize Your Neural Network? | ICRA (2019) Designing Worm-inspired Neural Networks for Interpretable Robotic Control | .",
           "url": "https://mlech26l.github.io/pages/about/",
           "relUrl": "/about/",
           "date": ""
