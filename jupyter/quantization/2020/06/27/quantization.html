@@ -113,7 +113,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      6 min read
+      7 min read
     
 </span></p>
 
@@ -301,8 +301,8 @@ However, in the past decade researcher have made the following two observations:
 <p><a href="https://en.wikipedia.org/wiki/Fixed-point_arithmetic">Fixed-point arithmetic</a> is a numerical format that can be implemented relatively effeciently used integer operations.
 For instance, we can use the first four bits of an <code>int8</code> value to represent the digits before the comma, and the last four bits to represent fractional digits that come after the comma:</p>
 
-<pre><code>0.5       + 1.25      = 1.75
-0000.1000 + 0001.0100 = 0001.1100</code></pre>
+<pre><code>Decimal: 0.5       + 1.25      = 1.75
+Binary:  0000.1000 + 0001.0100 = 0001.1100</code></pre>
 <p>A fixed-point addition can be implemented by simple integer addition and a fixed-point multiplication by a integer multiplication followed by an bit-wise shift operation.</p>
 <p>Obviously, the precision achieved with an 8-bit fixed-point format is not enough for training a neural network. However for inferencing, most types of layers can be quantized without suffering a significant loss in accuracy.
 The quantization step itself rounds the <code>float32</code> weight values to their nearest corresponding fixed-point value.</p>
@@ -415,7 +415,7 @@ Let's have a look at the compute performance of Nvidia's latest <a href="https:/
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Essentially, quantization does not only make the network smaller, but it also runs faster!</p>
+<p>Essentially, quantization does not only make the network smaller, but makes them also <strong>runs faster</strong>!</p>
 
 </div>
 </div>
@@ -473,7 +473,7 @@ Looking at the typical weight distribution of neural networks, we notice that th
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>If our sole purpose is to represent the weight values as accurately as possible using only 8-bits per parameter, then a logarithmic grid provides a better choice than the uniform partitioning of fixed-point formats.
+<p>If our only objective is to represent the weight values as accurately as possible using only 8-bits per parameter, then a logarithmic grid provides a better choice than the uniform partitioning of fixed-point formats.
 Although, such non-uniform quantization approaches can compress the weights of the network remarkably well, they destroy the key advantage of quantization: The use of integer arithemtic.</p>
 <p>In essence, comparing quantization method can be quite challenging as there are many tradeoffs to be considered.</p>
 
@@ -482,7 +482,48 @@ Although, such non-uniform quantization approaches can compress the weights of t
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Myth-#5:-A-8-bit-network-uses-only-8-bit-variables">Myth #5: A 8-bit network uses only 8-bit variables<a class="anchor-link" href="#Myth-#5:-A-8-bit-network-uses-only-8-bit-variables"> </a></h2><p>Although the weights and activations of a 8-bit quantized neural network are 8-bit integers, we need 32-bits accumulation registers internally for evaluating the network.</p>
+<h2 id="Myth-#5:-A-8-bit-network-uses-only-8-bit-variables">Myth #5: A 8-bit network uses only 8-bit variables<a class="anchor-link" href="#Myth-#5:-A-8-bit-network-uses-only-8-bit-variables"> </a></h2><p>In an 8-bit quantized neural network all weights and activations are 8-bit integer variables.
+However, when we run the network we need 32-bits accumulation registers internally to represent intermediate results.</p>
+<p>Let's take a look at the C-like implementation of a typical ReLU neuron:</p>
+<div class="highlight"><pre><span></span><span class="kt">float</span> <span class="nf">relu_neuron</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="kt">float</span><span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">n</span><span class="p">){</span>
+    <span class="kt">float</span> <span class="n">accumulator</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">accumulator</span> <span class="o">+=</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">accumulator</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">accumulator</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">accumulator</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Essentially all variables, the weights, the inputs, and the accumulator, are represented by the 32-bit floating-point type.
+For a neural network in fixed-point format we need larger integer accumulation register to perform the multiplications and summation.</p>
+<div class="highlight"><pre><span></span><span class="kt">int8_t</span> <span class="nf">relu_neuron</span><span class="p">(</span><span class="kt">int8_t</span><span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="kt">int8_t</span><span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">shift</span><span class="p">){</span>
+    <span class="kt">int32_t</span> <span class="n">accumulator</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="c1">// Multiplying two 8-bit integers requires a 16-bit register</span>
+        <span class="kt">int16_t</span> <span class="n">product</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="c1">// Sum over several 16-bit integers requires an even larger register (e.g. int32_t)</span>
+        <span class="n">accumulator</span> <span class="o">+=</span> <span class="n">product</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// Fixed-point multiplication requires a shift</span>
+    <span class="n">accumulator</span> <span class="o">=</span> <span class="n">accumulator</span><span class="o">&gt;&gt;</span><span class="n">shift</span><span class="p">;</span>
+
+    <span class="n">accumulator</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">accumulator</span><span class="p">);</span>
+    <span class="c1">// Project neuron value back to valid int8_t range</span>
+    <span class="n">accumulator</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">INT8_MAX</span><span class="p">,</span><span class="n">accumulator</span><span class="p">);</span>
+    <span class="c1">// Cast 32-bit accumulator back to 8-bit integer</span>
+    <span class="k">return</span> <span class="p">(</span><span class="kt">int8_t</span><span class="p">)</span><span class="n">accumulator</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Note that the parameter <code>shift</code> depends on the exact fixed-point format we employ, i.e., how many bits we use for storing the digits before and how many bits we use for storing the digits after the comma.</p>
+<p>Page 27 of <a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/nvidia-ampere-architecture-whitepaper.pdf">Nvidia's A100 whitepaper</a> specifies precisely which numerical format uses which numerical type for representing the <strong>input operands and the accumulation registers</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h2><p>Although the concept of neural network quantization is relatively simple, there are subtle details that can cause misconceptions. 
+In this post we have busted 5 common myths regarding quantized neural networks.</p>
 
 </div>
 </div>
