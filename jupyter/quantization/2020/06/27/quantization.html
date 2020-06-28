@@ -228,7 +228,6 @@ However, in the past decade researcher have made the following two observations:
     <tr style="text-align: right;">
       <th></th>
       <th>Data type</th>
-      <th>Comment</th>
       <th>Significand precision</th>
       <th>Exponent</th>
     </tr>
@@ -237,42 +236,36 @@ However, in the past decade researcher have made the following two observations:
     <tr>
       <th>0</th>
       <td>float64</td>
-      <td>Double precision IEE-754 floating-point</td>
       <td>52-bits</td>
       <td>11-bits</td>
     </tr>
     <tr>
       <th>1</th>
       <td>float32</td>
-      <td>Single precision IEE-754 floating-point</td>
       <td>23-bits</td>
       <td>8-bits</td>
     </tr>
     <tr>
       <th>2</th>
       <td>TensorFloat32</td>
-      <td>32-bit floating-point format with reduced sign...</td>
       <td>10-bits</td>
       <td>8-bits</td>
     </tr>
     <tr>
       <th>3</th>
       <td>float16</td>
-      <td>Half precision IEE-754 floating-point</td>
       <td>10-bits</td>
       <td>5-bits</td>
     </tr>
     <tr>
       <th>4</th>
       <td>bfloat16</td>
-      <td>16-bit brain-float format with larger range bu...</td>
       <td>7-bits</td>
       <td>8-bits</td>
     </tr>
     <tr>
       <th>5</th>
       <td>int8</td>
-      <td>8-bit integer format for fixed-point arithmetic</td>
       <td>7-bits</td>
       <td>0-bits</td>
     </tr>
@@ -351,12 +344,12 @@ Let's look at the compute performance of Nvidia's latest <a href="https://www.nv
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<div id="altair-viz-9887a121137040ef86bd6ae14c6177f3"></div>
+<div id="altair-viz-57d3f3f031fc4a539098d324364e298e"></div>
 <script type="text/javascript">
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-9887a121137040ef86bd6ae14c6177f3") {
-      outputDiv = document.getElementById("altair-viz-9887a121137040ef86bd6ae14c6177f3");
+    if (outputDiv.id !== "altair-viz-57d3f3f031fc4a539098d324364e298e") {
+      outputDiv = document.getElementById("altair-viz-57d3f3f031fc4a539098d324364e298e");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -398,7 +391,7 @@ Let's look at the compute performance of Nvidia's latest <a href="https://www.nv
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "Data type", "legend": null, "scale": {"scheme": "dark2"}}, "tooltip": [{"type": "nominal", "field": "Data type"}, {"type": "quantitative", "field": "TOPS"}, {"type": "nominal", "field": "Comment"}, {"type": "nominal", "field": "Significand precision"}, {"type": "nominal", "field": "Exponent"}], "x": {"type": "nominal", "axis": {"labels": false, "title": "Data format"}, "field": "Data type", "sort": ["float64", "float32", "TensorFloat32", "float16", "bfloat16", "int8"]}, "y": {"type": "quantitative", "axis": {"title": "Tera op/s"}, "field": "TOPS"}}, "height": 300, "title": "Nvidia A100 compute performance", "width": 700}, {"mark": {"type": "text", "align": "center", "baseline": "middle", "dy": -10, "fontSize": 16}, "encoding": {"color": {"type": "nominal", "field": "Data type", "legend": null, "scale": {"scheme": "dark2"}}, "text": {"type": "nominal", "field": "Data type"}, "tooltip": [{"type": "nominal", "field": "Data type"}, {"type": "quantitative", "field": "TOPS"}, {"type": "nominal", "field": "Comment"}, {"type": "nominal", "field": "Significand precision"}, {"type": "nominal", "field": "Exponent"}], "x": {"type": "nominal", "axis": {"labels": false, "title": "Data format"}, "field": "Data type", "sort": ["float64", "float32", "TensorFloat32", "float16", "bfloat16", "int8"]}, "y": {"type": "quantitative", "axis": {"title": "Tera op/s"}, "field": "TOPS"}}, "height": 300, "title": "Nvidia A100 compute performance", "width": 700}], "data": {"name": "data-150720172dd484d891e26d6e7b27f0a1"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-150720172dd484d891e26d6e7b27f0a1": [{"Data type": "float64", "TOPS": 9.7, "Significand precision": "52-bits", "Exponent": "11-bits", "Comment": "Double precision IEE-754 floating-point"}, {"Data type": "float32", "TOPS": 19.5, "Significand precision": "23-bits", "Exponent": "8-bits", "Comment": "Single precision IEE-754 floating-point"}, {"Data type": "TensorFloat32", "TOPS": 156.0, "Significand precision": "10-bits", "Exponent": "8-bits", "Comment": "32-bit floating-point format with reduced significand precision"}, {"Data type": "float16", "TOPS": 312.0, "Significand precision": "10-bits", "Exponent": "5-bits", "Comment": "Half precision IEE-754 floating-point"}, {"Data type": "bfloat16", "TOPS": 312.0, "Significand precision": "7-bits", "Exponent": "8-bits", "Comment": "16-bit brain-float format with larger range but reduced significand precision"}, {"Data type": "int8", "TOPS": 624.0, "Significand precision": "7-bits", "Exponent": "0-bits", "Comment": "8-bit integer format for fixed-point arithmetic"}]}}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "Data type", "legend": null, "scale": {"scheme": "dark2"}}, "tooltip": [{"type": "nominal", "field": "Data type"}, {"type": "quantitative", "field": "TOPS"}, {"type": "nominal", "field": "Comment"}, {"type": "nominal", "field": "Significand precision"}, {"type": "nominal", "field": "Exponent"}], "x": {"type": "nominal", "axis": {"labels": false, "title": "Data format"}, "field": "Data type", "sort": ["float64", "float32", "TensorFloat32", "float16", "bfloat16", "int8"]}, "y": {"type": "quantitative", "axis": {"title": "Tera op/s"}, "field": "TOPS"}}, "height": 300, "title": "Nvidia A100 compute performance", "width": 600}, {"mark": {"type": "text", "align": "center", "baseline": "middle", "dy": -10, "fontSize": 16}, "encoding": {"color": {"type": "nominal", "field": "Data type", "legend": null, "scale": {"scheme": "dark2"}}, "text": {"type": "nominal", "field": "Data type"}, "tooltip": [{"type": "nominal", "field": "Data type"}, {"type": "quantitative", "field": "TOPS"}, {"type": "nominal", "field": "Comment"}, {"type": "nominal", "field": "Significand precision"}, {"type": "nominal", "field": "Exponent"}], "x": {"type": "nominal", "axis": {"labels": false, "title": "Data format"}, "field": "Data type", "sort": ["float64", "float32", "TensorFloat32", "float16", "bfloat16", "int8"]}, "y": {"type": "quantitative", "axis": {"title": "Tera op/s"}, "field": "TOPS"}}, "height": 300, "title": "Nvidia A100 compute performance", "width": 600}], "data": {"name": "data-150720172dd484d891e26d6e7b27f0a1"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-150720172dd484d891e26d6e7b27f0a1": [{"Data type": "float64", "TOPS": 9.7, "Significand precision": "52-bits", "Exponent": "11-bits", "Comment": "Double precision IEE-754 floating-point"}, {"Data type": "float32", "TOPS": 19.5, "Significand precision": "23-bits", "Exponent": "8-bits", "Comment": "Single precision IEE-754 floating-point"}, {"Data type": "TensorFloat32", "TOPS": 156.0, "Significand precision": "10-bits", "Exponent": "8-bits", "Comment": "32-bit floating-point format with reduced significand precision"}, {"Data type": "float16", "TOPS": 312.0, "Significand precision": "10-bits", "Exponent": "5-bits", "Comment": "Half precision IEE-754 floating-point"}, {"Data type": "bfloat16", "TOPS": 312.0, "Significand precision": "7-bits", "Exponent": "8-bits", "Comment": "16-bit brain-float format with larger range but reduced significand precision"}, {"Data type": "int8", "TOPS": 624.0, "Significand precision": "7-bits", "Exponent": "0-bits", "Comment": "8-bit integer format for fixed-point arithmetic"}]}}, {"mode": "vega-lite"});
 </script>
 </div>
 
