@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>5 Myths about quantized neural networks | Home</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="5 Myths about quantized neural networks" />
+<meta name="author" content="Mathias Lechner" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A post about misconceptions and myths around quantization of neural networks" />
+<meta property="og:description" content="A post about misconceptions and myths around quantization of neural networks" />
+<link rel="canonical" href="https://mlech26l.github.io/pages/jupyter/quantization/2020/06/27/quantization.html" />
+<meta property="og:url" content="https://mlech26l.github.io/pages/jupyter/quantization/2020/06/27/quantization.html" />
+<meta property="og:site_name" content="Home" />
+<meta property="og:image" content="https://mlech26l.github.io/pages/images/gpu.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-27T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Mathias Lechner"},"description":"A post about misconceptions and myths around quantization of neural networks","@type":"BlogPosting","url":"https://mlech26l.github.io/pages/jupyter/quantization/2020/06/27/quantization.html","headline":"5 Myths about quantized neural networks","dateModified":"2020-06-27T00:00:00-05:00","datePublished":"2020-06-27T00:00:00-05:00","image":"https://mlech26l.github.io/pages/images/gpu.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://mlech26l.github.io/pages/jupyter/quantization/2020/06/27/quantization.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/pages/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://mlech26l.github.io/pages/feed.xml" title="Home" /><link rel="shortcut icon" type="image/x-icon" href="/pages/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>5 Myths about quantized neural networks | Home</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="5 Myths about quantized neural networks" />
+<meta name="author" content="Mathias Lechner" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A post about misconceptions and myths around quantization of neural networks" />
+<meta property="og:description" content="A post about misconceptions and myths around quantization of neural networks" />
+<link rel="canonical" href="https://mlech26l.github.io/pages/jupyter/quantization/2020/06/27/quantization.html" />
+<meta property="og:url" content="https://mlech26l.github.io/pages/jupyter/quantization/2020/06/27/quantization.html" />
+<meta property="og:site_name" content="Home" />
+<meta property="og:image" content="https://mlech26l.github.io/pages/images/gpu.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-27T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Mathias Lechner"},"description":"A post about misconceptions and myths around quantization of neural networks","@type":"BlogPosting","url":"https://mlech26l.github.io/pages/jupyter/quantization/2020/06/27/quantization.html","headline":"5 Myths about quantized neural networks","dateModified":"2020-06-27T00:00:00-05:00","datePublished":"2020-06-27T00:00:00-05:00","image":"https://mlech26l.github.io/pages/images/gpu.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://mlech26l.github.io/pages/jupyter/quantization/2020/06/27/quantization.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://mlech26l.github.io/pages/feed.xml" title="Home" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/pages/">Home</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/pages/about/">About Me</a><a class="page-link" href="/pages/search/">Search</a><a class="page-link" href="/pages/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">5 Myths about quantized neural networks</h1><p class="page-description">A post about misconceptions and myths around quantization of neural networks</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-06-27T00:00:00-05:00" itemprop="datePublished">
+        Jun 27, 2020
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Mathias Lechner</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/pages/categories/#jupyter">jupyter</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/pages/categories/#quantization">quantization</a>
+        
+      
+      </p>
+    
+
+    
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-6-28-quantization.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Background:-What-are-quantized-neural-networks?">Background: What are quantized neural networks?<a class="anchor-link" href="#Background:-What-are-quantized-neural-networks?"> </a></h2><p>When we run numerical algorithms on our computer we need to make sacrefices in terms of precision for the sake of runtime. 
+For instance, the square root of 2 is an irrational number and has an infinite amount of decimal digits. 
+Thus we need to decide how many digits we really need for our application.
+Each additional increases the memory and time requirements to store and compute a variable.</p>
+<p>For example, the IEEE-754 standard specifies four types of floaint-point formats:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;np.sqrt(2):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;float128:&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float128</span><span class="p">(</span><span class="mi">2</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;float64: &quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="mi">2</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;float32: &quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mi">2</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;float16: &quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">(</span><span class="mi">2</span><span class="p">))))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>np.sqrt(2):
+float128: 1.4142135623730950488
+float64:  1.4142135623730951
+float32:  1.4142135
+float16:  1.414
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For machine learning applications, the <code>float32</code> format has been the default choice, as it provides a decent performance while avoiding extreme numerical errors. 
+However, in the past decade researcher have made the following two observations:</p>
+<ul>
+<li>During the training phase, certain types of layers can be run and trained with lower precision level (e.g. <code>float16</code>)</li>
+<li>After the training phase (=inference phase), neural networks can run with much lower precision levels without sacreficing much accuracy</li>
+</ul>
+<p>Consequently, Nvidia's latest <a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/nvidia-ampere-architecture-whitepaper.pdf">A100 GPU</a> supports the following six numerical format:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Data type</th>
+      <th>Comment</th>
+      <th>Significand precision</th>
+      <th>Exponent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>float64</td>
+      <td>Double precision IEE-754 floating-point</td>
+      <td>52-bits</td>
+      <td>11-bits</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>float32</td>
+      <td>Single precision IEE-754 floating-point</td>
+      <td>23-bits</td>
+      <td>8-bits</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>TensorFloat32</td>
+      <td>32-bit floating-point format with reduced sign...</td>
+      <td>10-bits</td>
+      <td>8-bits</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>float16</td>
+      <td>Half precision IEE-754 floating-point</td>
+      <td>10-bits</td>
+      <td>5-bits</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>bfloat16</td>
+      <td>16-bit brain-float format with larger range bu...</td>
+      <td>7-bits</td>
+      <td>8-bits</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>int8</td>
+      <td>8-bit integer format for fixed-point arithmetic</td>
+      <td>7-bits</td>
+      <td>0-bits</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>One item that stands out in this list is the last row: While all other formats are based on a floating-point representation, <code>int8</code> is an integer type.</p>
+<p>This raises the question:</p>
+<blockquote><p><strong>How can we run a neural network with integer operations?</strong></p>
+</blockquote>
+<p>The answer is quantization.</p>
+<blockquote><p>Important:Quantization turns a network that operates over floating-point variables into a network that uses fixed-point arithmetic
+<a href="https://en.wikipedia.org/wiki/Fixed-point_arithmetic">Fixed-point arithmetic</a> is a numerical format that can be implemented relatively effeciently used integer operations.
+For instance, we can use the first four bits of an <code>int8</code> value to represent the digits before the comma, and the last four bits to represent fractional digits that come after the comma:
+```
+0.5       + 1.25      = 1.75
+0000.1000 + 0001.0100 = 0001.1100</p>
+</blockquote>
+<p>```
+A fixed-point addition can be implemented by simple integer addition and a fixed-point multiplication by a integer multiplication followed by an bit-wise shift operation.</p>
+<p>Obviously, the precision achieved with an 8-bit fixed-point format is not enough for training a neural network. However for inferencing, most types of layers can be quantized without suffering a significant loss in accuracy.
+The quantization step itself rounds the <code>float32</code> weight values to their nearest corresponding fixed-point value.</p>
+<p>The clear advantages of running a network using <code>int8</code> is that:</p>
+<ol>
+<li>It requies less memory, which improves cache and memory bandwidth efficiency.</li>
+<li>Can run using more efficient integer operations</li>
+</ol>
+<p>In particular, a <a href="https://arxiv.org/pdf/1704.04760.pdf">2017 Google paper</a> writes:</p>
+<blockquote><p>Eight-bit integer multiplies can be 6X less energy and 6X less area than IEEE 754 16-bit floating-point multiplies, and the
+advantage for integer addition is 13X in energy and 38X in area [Dal16].</p>
+<p><strong><em>- ''In-Datacenter Performance Analysis of a Tensor Processing Unit'' - Jouppi et al.</em></strong></p>
+</blockquote>
+<p>Despite this relatively simple concept, there are several misconceptions and myths regarding quantized neural networks:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Myth-#1:-Quantization-is-only-necessary-for-ultra-low-power-embedded-systems">Myth #1: Quantization is only necessary for ultra-low-power embedded systems<a class="anchor-link" href="#Myth-#1:-Quantization-is-only-necessary-for-ultra-low-power-embedded-systems"> </a></h2><p>Far from it. Data center applications currently benefit the most from quantization. 
+For instance, the first generation of <a href="https://arxiv.org/pdf/1704.04760.pdf">Google's Tensor Processing Units (TPUs)</a> only supported 
+quantized networks. Support for floating-point arithmetic was only added in the <a href="https://www.tomshardware.com/news/tpu-v2-google-machine-learning,35370.html">second generation</a>.</p>
+<p>Likewise, Nvidia's <a href="https://www.microway.com/knowledge-center-articles/in-depth-comparison-of-nvidia-tesla-volta-gpu-accelerators/">V100</a> and latest <a href="https://www.anandtech.com/show/15801/nvidia-announces-ampere-architecture-and-a100-products">A100</a> can
+perform four times as many <code>int8</code> tensor operations compared to <code>float32</code> operations per second (or twice as much <code>int8</code> as <code>float16</code> tensor operations per second).
+This means that, in a best case scenario, you can <strong>quadruple the throughput of your data center application</strong>
+if you quantize your network.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Myth-#2:-Quantization-makes-networks-smaller-but-not-faster">Myth #2: Quantization makes networks smaller but not faster<a class="anchor-link" href="#Myth-#2:-Quantization-makes-networks-smaller-but-not-faster"> </a></h2><p>As already hinted in the myth above, modern AI accelerators such as GPU and TPU can run integer operations faster than floating-point operations.
+Let's have a look at the compute performance of Nvidia's latest <a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/nvidia-ampere-architecture-whitepaper.pdf">A100 GPU</a>:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<div id="altair-viz-0929ad37219d472d8838efe1ef3d5e7c"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-0929ad37219d472d8838efe1ef3d5e7c") {
+      outputDiv = document.getElementById("altair-viz-0929ad37219d472d8838efe1ef3d5e7c");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "Data type", "legend": null, "scale": {"scheme": "dark2"}}, "tooltip": [{"type": "nominal", "field": "Data type"}, {"type": "quantitative", "field": "TOPS"}, {"type": "nominal", "field": "Comment"}, {"type": "nominal", "field": "Significand precision"}, {"type": "nominal", "field": "Exponent"}], "x": {"type": "nominal", "axis": {"labels": false, "title": "Data format"}, "field": "Data type", "sort": ["float64", "float32", "TensorFloat32", "float16", "bfloat16", "int8"]}, "y": {"type": "quantitative", "axis": {"title": "Tera op/s"}, "field": "TOPS"}}, "height": 300, "title": "Nvidia A100 compute performance", "width": 700}, {"mark": {"type": "text", "align": "center", "baseline": "middle", "dy": -10, "fontSize": 16}, "encoding": {"color": {"type": "nominal", "field": "Data type", "legend": null, "scale": {"scheme": "dark2"}}, "text": {"type": "nominal", "field": "Data type"}, "tooltip": [{"type": "nominal", "field": "Data type"}, {"type": "quantitative", "field": "TOPS"}, {"type": "nominal", "field": "Comment"}, {"type": "nominal", "field": "Significand precision"}, {"type": "nominal", "field": "Exponent"}], "x": {"type": "nominal", "axis": {"labels": false, "title": "Data format"}, "field": "Data type", "sort": ["float64", "float32", "TensorFloat32", "float16", "bfloat16", "int8"]}, "y": {"type": "quantitative", "axis": {"title": "Tera op/s"}, "field": "TOPS"}}, "height": 300, "title": "Nvidia A100 compute performance", "width": 700}], "data": {"name": "data-150720172dd484d891e26d6e7b27f0a1"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-150720172dd484d891e26d6e7b27f0a1": [{"Data type": "float64", "TOPS": 9.7, "Significand precision": "52-bits", "Exponent": "11-bits", "Comment": "Double precision IEE-754 floating-point"}, {"Data type": "float32", "TOPS": 19.5, "Significand precision": "23-bits", "Exponent": "8-bits", "Comment": "Single precision IEE-754 floating-point"}, {"Data type": "TensorFloat32", "TOPS": 156.0, "Significand precision": "10-bits", "Exponent": "8-bits", "Comment": "32-bit floating-point format with reduced significand precision"}, {"Data type": "float16", "TOPS": 312.0, "Significand precision": "10-bits", "Exponent": "5-bits", "Comment": "Half precision IEE-754 floating-point"}, {"Data type": "bfloat16", "TOPS": 312.0, "Significand precision": "7-bits", "Exponent": "8-bits", "Comment": "16-bit brain-float format with larger range but reduced significand precision"}, {"Data type": "int8", "TOPS": 624.0, "Significand precision": "7-bits", "Exponent": "0-bits", "Comment": "8-bit integer format for fixed-point arithmetic"}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Essentially, quantization does not only make the network smaller, but it also runs faster!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Myth-#3:-Any-layer-in-a-neural-network-can-be-quantized">Myth #3: Any layer in a neural network can be quantized<a class="anchor-link" href="#Myth-#3:-Any-layer-in-a-neural-network-can-be-quantized"> </a></h2><p>Some types of layers do not tolerate quantization very well. For example, in <a href="https://openreview.net/forum?id=HkxjYoCqKX&amp;noteId=rygmk1EDT7">a discussion of an ICLR paper by Max Welling's group</a> we see that quantizing the first or the last layer of a network results an a considerable drop in accuracy. 
+This gap does not completely close even if we train the network using quantization-aware training.</p>
+<p>One trick which is often used to avoid this drop in accuracy is to not quantize the first and the last layer. 
+As these two layers only take up a small fraction of the computations inside a network, running the first and the last layer with <code>float32</code> does not hurt throughput much, but significantly benefits the accuracy of the network.</p>
+<p>However, one some end-devices this approach is not an option. For instance, <a href="https://cloud.google.com/edge-tpu">Google's Edge TPU</a> only supports <code>int8</code>. Therefore, in such cases every layer of the network must be quantized to 8-bit integers.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Myth-#4:-It's-easy-to-compare-different-quantization-approaches">Myth #4: It's easy to compare different quantization approaches<a class="anchor-link" href="#Myth-#4:-It's-easy-to-compare-different-quantization-approaches"> </a></h2><p>Comparing two different quantization method is not a trivial job. 
+Connecting to the discussion above, let's imagine we have a network and quantize it with two different methods to obtain network A and network B.
+While, network A achieves a 90% accuracy by quantized all layers, network B achieves a 92% accuracy but leaves the first layer running with floating-point precision.</p>
+<p>Which method is better?</p>
+<p>The answer of this question depends on the context; which target device will the network run on?
+If it's a device wihtout a floaing-point unit such as the Edge TPU or a microcontroller, then method A is clearly better. 
+Contrarily, if we plan to run the network on a V100 or A100 GPU, then method B might be the better approach.</p>
+<p>Another technique that causes a lot of misconceptions found in <a href="https://openreview.net/forum?id=HkxjYoCqKX&amp;noteId=rygmk1EDT7">the discussion of the ICLR paper by Max Welling's group</a> are <strong>non-uniform quantization schemes</strong>:
+Fixed-point formats partition the representable value range using a uniform grid, e.g., there are the same amount of intermediate values between 1.5 and 2.5 as between 2.5 and 3.5. 
+Looking at the typical weight distribution of neural networks, we notice that they follow a Gaussian-like bell curve distribution with smaller values occurcing more frequently than large weight values.</p>
+<p>If our sole purpose is to represent the weight values as accurately as possible using only 8-bits per parameter, then a logarithmic grid provides a better choice than the uniform partitioning of fixed-point formats.
+Although, such non-uniform quantization approaches can compress the weights of the network remarkably well, they destroy the key advantage of quantization: The use of integer arithemtic.</p>
+<p>In essence, comparing quantization method can be quite challenging as there are many tradeoffs to be considered.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Myth-#5:-A-8-bit-network-uses-only-8-bit-variables">Myth #5: A 8-bit network uses only 8-bit variables<a class="anchor-link" href="#Myth-#5:-A-8-bit-network-uses-only-8-bit-variables"> </a></h2>
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/pages/jupyter/quantization/2020/06/27/quantization.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/pages/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/pages/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/pages/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Personal research blog and webpage</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/mlech26l" title="mlech26l"><svg class="svg-icon grey"><use xlink:href="/pages/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/MLech20" title="MLech20"><svg class="svg-icon grey"><use xlink:href="/pages/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
