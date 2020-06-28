@@ -151,11 +151,11 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Background:-What-are-quantized-neural-networks?">Background: What are quantized neural networks?<a class="anchor-link" href="#Background:-What-are-quantized-neural-networks?"> </a></h2><p>When we run numerical algorithms on our computer we need to make sacrefices in terms of precision for the sake of runtime. 
+<h2 id="Background:-What-are-quantized-neural-networks?">Background: What are quantized neural networks?<a class="anchor-link" href="#Background:-What-are-quantized-neural-networks?"> </a></h2><p>When we run numerical algorithms on our computer, we need to make sacrifices in terms of precision for the sake of runtime. 
 For instance, the square root of 2 is an irrational number and has an infinite amount of decimal digits. 
 Thus we need to decide how many digits we really need for our application.
 Each additional increases the memory and time requirements to store and compute a variable.</p>
-<p>For example, the IEEE-754 standard specifies four types of floaint-point formats:</p>
+<p>For example, the IEEE-754 standard specifies four types of floating-point formats:</p>
 
 </div>
 </div>
@@ -190,8 +190,8 @@ float16:  1.414
 <p>For machine learning applications, the <code>float32</code> format has been the default choice, as it provides a decent performance while avoiding extreme numerical errors. 
 However, in the past decade researcher have made the following two observations:</p>
 <ul>
-<li>During the training phase, certain types of layers can be run and trained with lower precision level (e.g. <code>float16</code>)</li>
-<li>After the training phase (=inference phase), neural networks can run with much lower precision levels without sacreficing much accuracy</li>
+<li>During the training phase, certain types of layers can be run and trained with lower precision (e.g., <code>float16</code>)</li>
+<li>After the training phase (=inference phase), neural networks can run with much lower precision levels without sacrificing much accuracy</li>
 </ul>
 <p>Consequently, Nvidia's latest <a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/nvidia-ampere-architecture-whitepaper.pdf">A100 GPU</a> supports the following six numerical format:</p>
 
@@ -296,23 +296,22 @@ However, in the past decade researcher have made the following two observations:
 <blockquote><p><strong>How can we run a neural network with integer operations?</strong></p>
 </blockquote>
 <p>The answer is quantization.</p>
-<blockquote><p>Important:Quantization turns a network that operates over floating-point variables into a network that uses fixed-point arithmetic</p>
+<blockquote><p>Quantization translates a network that operates over floating-point variables into a network that uses fixed-point arithmetic</p>
 </blockquote>
-<p><a href="https://en.wikipedia.org/wiki/Fixed-point_arithmetic">Fixed-point arithmetic</a> is a numerical format that can be implemented relatively effeciently used integer operations.
-For instance, we can use the first four bits of an <code>int8</code> value to represent the digits before the comma, and the last four bits to represent fractional digits that come after the comma:</p>
+<p><a href="https://en.wikipedia.org/wiki/Fixed-point_arithmetic">Fixed-point arithmetic</a> is a numerical format that can be implemented relatively efficiently used integer operations.For instance, we can use the first four bits of an <code>int8</code> value to represent the digits before the comma, and the last four bits to represent fractional digits that come after the comma:</p>
 
 <pre><code>Decimal: 0.5       + 1.25      = 1.75
 Binary:  0000.1000 + 0001.0100 = 0001.1100</code></pre>
-<p>A fixed-point addition can be implemented by simple integer addition and a fixed-point multiplication by a integer multiplication followed by an bit-wise shift operation.</p>
-<p>Obviously, the precision achieved with an 8-bit fixed-point format is not enough for training a neural network. However for inferencing, most types of layers can be quantized without suffering a significant loss in accuracy.
+<p>A fixed-point addition can be implemented by simple integer addition and a fixed-point multiplication by an integer multiplication followed by a bit-wise shift operation.</p>
+<p>Obviously, the precision achieved with an 8-bit fixed-point format is not enough for training a neural network. However, most types of layers can be quantized for inferencing without suffering a significant loss in accuracy.
 The quantization step itself rounds the <code>float32</code> weight values to their nearest corresponding fixed-point value.</p>
 <p>The clear advantages of running a network using <code>int8</code> is that:</p>
 <ol>
-<li>It requies less memory, which improves cache and memory bandwidth efficiency.</li>
+<li>It requires less memory, which improves cache and memory bandwidth efficiency.</li>
 <li>Can run using more efficient integer operations</li>
 </ol>
 <p>In particular, a <a href="https://arxiv.org/pdf/1704.04760.pdf">2017 Google paper</a> writes:</p>
-<blockquote><p>Eight-bit integer multiplies can be 6X less energy and 6X less area than IEEE 754 16-bit floating-point multiplies, and the
+<blockquote><p>Eight-bit integer multiplies can be 6X less energy and 6X less area than IEEE 754 16-bit floating-point multiplies and the
 advantage for integer addition is 13X in energy and 38X in area [Dal16].</p>
 <p><strong><em>- ''In-Datacenter Performance Analysis of a Tensor Processing Unit'' - Jouppi et al.</em></strong></p>
 </blockquote>
@@ -323,13 +322,11 @@ advantage for integer addition is 13X in energy and 38X in area [Dal16].</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Myth-#1:-Quantization-is-only-necessary-for-ultra-low-power-embedded-systems">Myth #1: Quantization is only necessary for ultra-low-power embedded systems<a class="anchor-link" href="#Myth-#1:-Quantization-is-only-necessary-for-ultra-low-power-embedded-systems"> </a></h2><p>Far from it. Data center applications currently benefit the most from quantization. 
-For instance, the first generation of <a href="https://arxiv.org/pdf/1704.04760.pdf">Google's Tensor Processing Units (TPUs)</a> only supported 
-quantized networks. Support for floating-point arithmetic was only added in the <a href="https://www.tomshardware.com/news/tpu-v2-google-machine-learning,35370.html">second generation</a>.</p>
+<h2 id="Myth-#1:-Quantization-is-only-necessary-for-ultra-low-power-embedded-systems">Myth #1: Quantization is only necessary for ultra-low-power embedded systems<a class="anchor-link" href="#Myth-#1:-Quantization-is-only-necessary-for-ultra-low-power-embedded-systems"> </a></h2><p>Far from it. Datacenter applications currently benefit the most from quantization. 
+For instance, the first generation of <a href="https://arxiv.org/pdf/1704.04760.pdf">Google's Tensor Processing Units (TPUs)</a> only supported quantized networks. Computation units for floating-point arithmetic were only added in the <a href="https://www.tomshardware.com/news/tpu-v2-google-machine-learning,35370.html">second generation</a>.</p>
 <p>Likewise, Nvidia's <a href="https://www.microway.com/knowledge-center-articles/in-depth-comparison-of-nvidia-tesla-volta-gpu-accelerators/">V100</a> and latest <a href="https://www.anandtech.com/show/15801/nvidia-announces-ampere-architecture-and-a100-products">A100</a> can
 perform four times as many <code>int8</code> tensor operations compared to <code>float32</code> operations per second (or twice as much <code>int8</code> as <code>float16</code> tensor operations per second).
-This means that, in a best case scenario, you can <strong>quadruple the throughput of your data center application</strong>
-if you quantize your network.</p>
+This means that you can <strong>quadruple the throughput of your datacenter application</strong> with quantization in a best-case scenario.</p>
 
 </div>
 </div>
@@ -337,7 +334,7 @@ if you quantize your network.</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Myth-#2:-Quantization-makes-networks-smaller-but-not-faster">Myth #2: Quantization makes networks smaller but not faster<a class="anchor-link" href="#Myth-#2:-Quantization-makes-networks-smaller-but-not-faster"> </a></h2><p>As already hinted in the myth above, modern AI accelerators such as GPU and TPU can run integer operations faster than floating-point operations.
-Let's have a look at the compute performance of Nvidia's latest <a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/nvidia-ampere-architecture-whitepaper.pdf">A100 GPU</a>:</p>
+Let's look at the compute performance of Nvidia's latest <a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/nvidia-ampere-architecture-whitepaper.pdf">A100 GPU</a>:</p>
 
 </div>
 </div>
@@ -422,27 +419,27 @@ Let's have a look at the compute performance of Nvidia's latest <a href="https:/
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Myth-#3:-Any-layer-in-a-neural-network-can-be-quantized">Myth #3: Any layer in a neural network can be quantized<a class="anchor-link" href="#Myth-#3:-Any-layer-in-a-neural-network-can-be-quantized"> </a></h2><p>Some types of layers do not tolerate quantization very well. For example, in <a href="https://openreview.net/forum?id=HkxjYoCqKX&amp;noteId=rygmk1EDT7">a discussion of an ICLR paper by Max Welling's group</a> we see that quantizing the first or the last layer of a network results an a considerable drop in accuracy. 
-This gap does not completely close even if we train the network using quantization-aware training.</p>
-<p>One trick which is often used to avoid this drop in accuracy is to not quantize the first and the last layer. 
+<h2 id="Myth-#3:-Any-layer-in-a-neural-network-can-be-quantized">Myth #3: Any layer in a neural network can be quantized<a class="anchor-link" href="#Myth-#3:-Any-layer-in-a-neural-network-can-be-quantized"> </a></h2><p>Some types of layers do not tolerate quantization very well. For example, in <a href="https://openreview.net/forum?id=HkxjYoCqKX&amp;noteId=rygmk1EDT7">a discussion of an ICLR paper by Max Welling's group</a> we see that quantizing the first or the last layer of a network results in a considerable drop in accuracy. 
+This gap does not entirely close even if we train the network using <a href="https://arxiv.org/pdf/1712.05877.pdf">quantization-aware training</a> techniques.</p>
+<p>One trick often used to avoid this drop in accuracy is not to quantize the first and the last layer. 
 As these two layers only take up a small fraction of the computations inside a network, running the first and the last layer with <code>float32</code> does not hurt throughput much, but significantly benefits the accuracy of the network.</p>
-<p>However, one some end-devices this approach is not an option. For instance, <a href="https://cloud.google.com/edge-tpu">Google's Edge TPU</a> only supports <code>int8</code>. Therefore, in such cases every layer of the network must be quantized to 8-bit integers.</p>
+<p>However, one some end-devices, this approach is not an option. For instance, <a href="https://cloud.google.com/edge-tpu">Google's Edge TPU</a> only supports <code>int8</code>. Therefore, in such cases, every layer of the network must be quantized to 8-bit integers.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Myth-#4:-It's-easy-to-compare-different-quantization-approaches">Myth #4: It's easy to compare different quantization approaches<a class="anchor-link" href="#Myth-#4:-It's-easy-to-compare-different-quantization-approaches"> </a></h2><p>Comparing two different quantization method is not a trivial job. 
+<h2 id="Myth-#4:-It's-easy-to-compare-different-quantization-approaches">Myth #4: It's easy to compare different quantization approaches<a class="anchor-link" href="#Myth-#4:-It's-easy-to-compare-different-quantization-approaches"> </a></h2><p>Comparing two different quantization methods is not a trivial job. 
 Connecting to the discussion above, let's imagine we have a network and quantize it with two different methods to obtain network A and network B.
-While, network A achieves a 90% accuracy by quantized all layers, network B achieves a 92% accuracy but leaves the first layer running with floating-point precision.</p>
+While network A achieves a 90% accuracy by quantized all layers, network B achieves a 92% accuracy but leaves the first layer running with floating-point precision.</p>
 <p>Which method is better?</p>
-<p>The answer of this question depends on the context; which target device will the network run on?
-If it's a device wihtout a floaing-point unit such as the Edge TPU or a microcontroller, then method A is clearly better. 
+<p>The answer to this question depends on the context; which target device will the network run on?
+If it's a device without a floating-point unit such as the Edge TPU or a microcontroller, then method A is clearly better. 
 Contrarily, if we plan to run the network on a V100 or A100 GPU, then method B might be the better approach.</p>
 <p>Another technique that causes a lot of misconceptions found in <a href="https://openreview.net/forum?id=HkxjYoCqKX&amp;noteId=rygmk1EDT7">the discussion of the ICLR paper by Max Welling's group</a> are <strong>non-uniform quantization schemes</strong>:
 Fixed-point formats partition the representable value range using a uniform grid, e.g., there are the same amount of intermediate values between 1.5 and 2.5 as between 2.5 and 3.5. 
-Looking at the typical weight distribution of neural networks, we notice that they follow a Gaussian-like bell curve distribution with smaller values occurcing more frequently than large weight values.</p>
+Looking at the typical weight distribution of neural networks, we notice that they follow a Gaussian-like bell curve distribution with smaller values occurring more frequently than large weight values.</p>
 
 </div>
 </div>
@@ -474,16 +471,16 @@ Looking at the typical weight distribution of neural networks, we notice that th
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>If our only objective is to represent the weight values as accurately as possible using only 8-bits per parameter, then a logarithmic grid provides a better choice than the uniform partitioning of fixed-point formats.
-Although, such non-uniform quantization approaches can compress the weights of the network remarkably well, they destroy the key advantage of quantization: The use of integer arithemtic.</p>
-<p>In essence, comparing quantization method can be quite challenging as there are many tradeoffs to be considered.</p>
+Although such non-uniform quantization approaches can remarkably compress the weights of the network, they destroy the critical advantage of quantization: The enabling of efficient integer arithmetic.</p>
+<p>In essence, comparing different quantization methods can be quite challenging as there are many tradeoffs to be considered.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Myth-#5:-A-8-bit-network-uses-only-8-bit-variables">Myth #5: A 8-bit network uses only 8-bit variables<a class="anchor-link" href="#Myth-#5:-A-8-bit-network-uses-only-8-bit-variables"> </a></h2><p>In an 8-bit quantized neural network all weights and activations are 8-bit integer variables.
-However, when we run the network we need 32-bits accumulation registers internally to represent intermediate results.</p>
+<h2 id="Myth-#5:-A-8-bit-network-uses-only-8-bit-variables">Myth #5: A 8-bit network uses only 8-bit variables<a class="anchor-link" href="#Myth-#5:-A-8-bit-network-uses-only-8-bit-variables"> </a></h2><p>In an 8-bit quantized neural network, all weights and activations are 8-bit integer variables.
+However, when we run the network, we need 32-bits accumulation registers internally to represent intermediate results.</p>
 <p>Let's take a look at the C-like implementation of a typical ReLU neuron:</p>
 <div class="highlight"><pre><span></span><span class="kt">float</span> <span class="nf">relu_neuron</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="kt">float</span><span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">n</span><span class="p">){</span>
     <span class="kt">float</span> <span class="n">accumulator</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -495,7 +492,7 @@ However, when we run the network we need 32-bits accumulation registers internal
 <span class="p">}</span>
 </pre></div>
 <p>Essentially all variables, the weights, the inputs, and the accumulator, are represented by the 32-bit floating-point type.
-For a neural network in fixed-point format we need larger integer accumulation register to perform the multiplications and summation.</p>
+For a neural network in a fixed-point format, we need a wider integer accumulation register to perform the multiplications and summation.</p>
 <div class="highlight"><pre><span></span><span class="kt">int8_t</span> <span class="nf">relu_neuron</span><span class="p">(</span><span class="kt">int8_t</span><span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="kt">int8_t</span><span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">shift</span><span class="p">){</span>
     <span class="kt">int32_t</span> <span class="n">accumulator</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
@@ -523,7 +520,7 @@ For a neural network in fixed-point format we need larger integer accumulation r
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h2><p>Although the concept of neural network quantization is relatively simple, there are subtle details that can cause misconceptions. 
-In this post we have busted 5 common myths regarding quantized neural networks.</p>
+In this post, we have busted five common myths regarding quantized neural networks.</p>
 
 </div>
 </div>
