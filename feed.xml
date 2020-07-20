@@ -1,4 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mlech26l.github.io/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mlech26l.github.io/pages/" rel="alternate" type="text/html" /><updated>2020-07-19T04:48:19-05:00</updated><id>https://mlech26l.github.io/pages/feed.xml</id><title type="html">Home</title><subtitle>Personal research blog and webpage</subtitle><entry><title type="html">The dangers of biases in AI</title><link href="https://mlech26l.github.io/pages/2020/06/30/biases.html" rel="alternate" type="text/html" title="The dangers of biases in AI" /><published>2020-06-30T00:00:00-05:00</published><updated>2020-06-30T00:00:00-05:00</updated><id>https://mlech26l.github.io/pages/2020/06/30/biases</id><content type="html" xml:base="https://mlech26l.github.io/pages/2020/06/30/biases.html">&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mlech26l.github.io/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mlech26l.github.io/pages/" rel="alternate" type="text/html" /><updated>2020-07-20T10:06:50-05:00</updated><id>https://mlech26l.github.io/pages/feed.xml</id><title type="html">Home</title><subtitle>Personal research blog and webpage</subtitle><entry><title type="html">We won the 7th F1/TENTH Autonomous Grand Prix</title><link href="https://mlech26l.github.io/pages/2020/07/20/f1tenth.html" rel="alternate" type="text/html" title="We won the 7th F1/TENTH Autonomous Grand Prix" /><published>2020-07-20T00:00:00-05:00</published><updated>2020-07-20T00:00:00-05:00</updated><id>https://mlech26l.github.io/pages/2020/07/20/f1tenth</id><content type="html" xml:base="https://mlech26l.github.io/pages/2020/07/20/f1tenth.html">&lt;p&gt;Our team won first place in the &lt;a href=&quot;https://ifac2020.f1tenth.org/&quot;&gt;7th F1/TENTH Autonomous Grand Prix at the World Congress of the International Federation of Automatic Control (IFAC 2020)&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-f1tenth-grand-prix&quot;&gt;The F1/TENTH Grand Prix&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://f1tenth.org/&quot;&gt;F1/TENTH&lt;/a&gt; is a project about designing, building, and racing with autonomous cars at the scale of 1:10 of formula-1 cars (thus the name F1/TENTH). Initially founded by researchers from the University of Pennsylvania, F1/TENTH has attracted an international community and is regularly holding racing competitions. &lt;br /&gt;
+The latest of these competitions, the 7th F1/TENTH Autonomous Grand Prix, was indented to be held physically in Berlin. However, due to Covid-19, the race was carried out virtually in a simulation environment. 
+I and students from TU Wien participated and won this Grand Prix under the team name &lt;em&gt;“TUfast TUfurious”&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;our-approach&quot;&gt;Our approach&lt;/h2&gt;
+
+&lt;p&gt;Our agent implements a path following algorithm based on the race map, which the organizers released a week before the competition. We tested our agent with several pre-computed paths, including a very smooth one and one that drives the curves very aggressively. Eventually, we settled for a path, as shown below (right), that comprises of long straight parts where the agent can accelerate.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/pages/images/f1tenth/comb.png&quot; alt=&quot;award&quot; title=&quot;Left: Smooth baseline trajectory, Right: Proposed faster path&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After we fixed our path following core, we developed a velocity controller module. Based on the car’s current position, our velocity controller looks ahead of the planned path and estimates how much steering the agent has to do in the next couple of seconds. If the agent is expected to steer a lot, the velocity controller will reduce the car’s speed. Vice versa, if the track ahead is a straight part, the velocity controller will accelerate the vehicle. How far the velocity module looks ahead and how much to brake and accelerate in which conditions, is optimized using reinforcement learning.
+As for the learning part, we opt for a good-old random search algorithm.
+On top of the path following algorithm and the velocity controller, we implemented two methods that gave us an edge during the race.
+Our first improvement is a manual starting maneuver. Essentially, at the beginning of the race, we overwrite the velocity controller by accelerating with the maximum throttle. After a few seconds, we assign the control back to the learned velocity module.
+Our second improvement is a collision avoidance procedure. Our assumption the collision avoidance was that the opponents behave either near-optimal. Thus a safe overtaking during the race is not possible. Consequently, if our agent foresees colliding into the other car, for instance, because the other car slows down before a corner, our collision avoidance procedure slows down our car as well.&lt;/p&gt;
+
+&lt;p&gt;After we implemented all parts of our agent, we rigorously tested it.
+For instance, in the animation, we compared our agent to an opponent who performs a near-optimal start but then slows down halfway through the track.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/pages/images/f1tenth/testing.gif&quot; alt=&quot;award&quot; title=&quot;Our agent (blue) vs a tested opponent that starts near-optimal but later slows down&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Our agent correctly foresees a crash a the beginning and slows down. After letting the opponent pass, our agent catches up quickly with the other car, when our agent has to slow down again to avoid a crash.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-competition&quot;&gt;The competition&lt;/h2&gt;
+&lt;p&gt;During the head-to-head races, our agent demonstrated that it performs remarkably well in a variety of scenarios.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/pages/images/f1tenth/f110.png&quot; alt=&quot;award&quot; title=&quot;Tournament bracket&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For instance, in the first race, our agent quickly overtook the opponent independently of starting in the advantaged or disadvantaged starting position.
+In the second race, our agent correctly avoided a crash with the fast-starting opponent. Nonetheless, our agent won due to a faster lap time.
+In the final race, our agent won because the other team’s car crashed into our agent, demonstrating how vital a well-tested collision avoidance is.
+All-in-all our agent was able to win because it performed excellently in a diverse set of conditions.&lt;/p&gt;
+
+&lt;h2 id=&quot;acknowledgement&quot;&gt;Acknowledgement&lt;/h2&gt;
+
+&lt;p&gt;I want to thank all of my team members, Thomas Pintaric, Bernhard Schögl, Axel Brunnbauer, Hannes Brantner, and Andreas Brandstätter, for contributing to our submission and making the first-place possible. I also want to thank Radu Grosu for organizing the autonomous racing car course at TU Wien.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/pages/images/f1tenth/celebrate3.jpg&quot; alt=&quot;award&quot; title=&quot;Prof. Radu Grosu celebrating&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="F1/TENTH" /><category term="Autonomous racing" /><summary type="html">Our team won first place in the 7th F1/TENTH Autonomous Grand Prix at the World Congress of the International Federation of Automatic Control (IFAC 2020).</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://mlech26l.github.io/pages/images/f1tenth/car.jpg" /><media:content medium="image" url="https://mlech26l.github.io/pages/images/f1tenth/car.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">The dangers of biases in AI</title><link href="https://mlech26l.github.io/pages/2020/06/30/biases.html" rel="alternate" type="text/html" title="The dangers of biases in AI" /><published>2020-06-30T00:00:00-05:00</published><updated>2020-06-30T00:00:00-05:00</updated><id>https://mlech26l.github.io/pages/2020/06/30/biases</id><content type="html" xml:base="https://mlech26l.github.io/pages/2020/06/30/biases.html">&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
 
 &lt;p&gt;At the &lt;a href=&quot;http://cvpr2020.thecvf.com/&quot;&gt;2020 Conference on Computer Vision and Pattern Recognition (CVPR)&lt;/a&gt; Duke University published a new method title &lt;a href=&quot;https://arxiv.org/pdf/2003.03808.pdf&quot;&gt;Photo Upsampling via Latent Space Exploration (PULSE)&lt;/a&gt; for upsampling low resolution photos.
 In a nutshell, PULSE searches the latent space of a generative model to find a high-resolution image that downsamples to an image that looks similar to the low-resolution input image. 
