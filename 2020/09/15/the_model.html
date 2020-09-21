@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>An old neuron model revisted | Home</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="An old neuron model revisted" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This is the second part in a series explaining our recent paper titled XXX." />
+<meta property="og:description" content="This is the second part in a series explaining our recent paper titled XXX." />
+<link rel="canonical" href="https://mlech26l.github.io/pages/2020/09/15/the_model.html" />
+<meta property="og:url" content="https://mlech26l.github.io/pages/2020/09/15/the_model.html" />
+<meta property="og:site_name" content="Home" />
+<meta property="og:image" content="https://mlech26l.github.io/pages/images/wormnet/circuit/the_model.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-15T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"This is the second part in a series explaining our recent paper titled XXX.","@type":"BlogPosting","headline":"An old neuron model revisted","dateModified":"2020-09-15T00:00:00-05:00","datePublished":"2020-09-15T00:00:00-05:00","image":"https://mlech26l.github.io/pages/images/wormnet/circuit/the_model.png","url":"https://mlech26l.github.io/pages/2020/09/15/the_model.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://mlech26l.github.io/pages/2020/09/15/the_model.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/pages/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://mlech26l.github.io/pages/feed.xml" title="Home" /><link rel="shortcut icon" type="image/x-icon" href="/pages/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>An old neuron model revisted | Home</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="An old neuron model revisted" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This is the second part in a series explaining our recent paper titled XXX." />
+<meta property="og:description" content="This is the second part in a series explaining our recent paper titled XXX." />
+<link rel="canonical" href="https://mlech26l.github.io/pages/2020/09/15/the_model.html" />
+<meta property="og:url" content="https://mlech26l.github.io/pages/2020/09/15/the_model.html" />
+<meta property="og:site_name" content="Home" />
+<meta property="og:image" content="https://mlech26l.github.io/pages/images/wormnet/circuit/the_model.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-15T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"This is the second part in a series explaining our recent paper titled XXX.","@type":"BlogPosting","headline":"An old neuron model revisted","dateModified":"2020-09-15T00:00:00-05:00","datePublished":"2020-09-15T00:00:00-05:00","image":"https://mlech26l.github.io/pages/images/wormnet/circuit/the_model.png","url":"https://mlech26l.github.io/pages/2020/09/15/the_model.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://mlech26l.github.io/pages/2020/09/15/the_model.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://mlech26l.github.io/pages/feed.xml" title="Home" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/pages/">Home</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/pages/about/">About Me</a><a class="page-link" href="/pages/search/">Search</a><a class="page-link" href="/pages/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">An old neuron model revisted</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-09-15T00:00:00-05:00" itemprop="datePublished">
+        Sep 15, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>This is the second part in a series explaining our recent paper titled XXX.</p>
+
+<h2 id="neurons-are-cells">Neurons are cells</h2>
+
+<p>As briefly discussed in the first part, the neuron model used in machine learning is quite a high-level abstraction of the complex cells neuroscience deals with. 
+We have also talked about how the activation value of a neuron is actually an electrical potential caused by different concentrations of charged ions inside and outside the cell. 
+Going one step further, there may be different ion concentrations at different locations inside the cell, resulting in the neuron not having a single activation value but a location-dependent potential.
+We won’t go this far of construction such a compartmental model, but assume a neuron has a single electrical potential.
+We start by modeling the neuron’s membrane that separates the ions inside and outside the cell as a capacitor.</p>
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mfrac><mrow><mi>d</mi><mi>v</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mi>i</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">C \frac{d v}{d t} = i(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.05744em;vertical-align:-0.686em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.37144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="mord mathdefault">t</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">i</span><span class="mopen">(</span><span class="mord mathdefault">t</span><span class="mclose">)</span></span></span></span></span>
+
+<p>The voltage the capacitor is charged to represent the activation of the neuron. The idea of modeling a neuron’s membrane as a capacitor dates back to 1907 <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup> and is used is many influencial neuron models <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote">2</a></sup>.
+Next, we assume the neuron has a resting potential: the potential it wants to attain when no external stimulus is applied to the neuron.</p>
+
+<p><img src="/pages/images/wormnet/circuit/rc.png" alt="award" title="A neuron is modelled as a capacitor" /></p>
+
+<p>A network of such standalone RC-circuits is quite boring, so we need a synapse model to let the neurons communicate with each other.
+Physical synapses trigger an increase of certain ions in the post-synaptic neuron through neurotransmitters released by the pre-synaptic neuron. As a result, the post-synaptic neuron’s potential increases or decreases, depending on the ions’ flow direction and polarity. The release of neurotransmitters itself is triggered by pre-synaptic neuron’s potential exceeding a certain threshold.
+We model this process by adding the following electrical circuit to the post-synaptic neuron,</p>
+
+<p><img src="/pages/images/wormnet/circuit/syn.png" alt="award" title="A neuron connected by two incomming synapses 1 and 2" /></p>
+
+<p>where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mrow><mi>r</mi><mi>e</mi><mi>v</mi><mo separator="true">,</mo></mrow></msub></mrow><annotation encoding="application/x-tex">E_{rev,}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> determines the reverse-potential, i.e., the potential toward which the synapses pushes the post-synaptic neuron’s potential. In the case of an excitatory synapse, this value is larger than the resting potential (activating the neuron). In the case of an inhibitory synapse, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mrow><mi>r</mi><mi>e</mi><mi>v</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">E_{rev,k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>  is lower than the resting potential (deactivating the neuron).</p>
+
+<p>The interesting <strong>non-linear</strong> dynamics of the synapse happens inside the varistor <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">g_{k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> . The conductance of it is governed by the equation</p>
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>k</mi></msub><mo>=</mo><mfrac><msub><mi>G</mi><mi>k</mi></msub><mrow><mn>1</mn><mo>+</mo><mi>exp</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mo>−</mo><mi>σ</mi><msub><mi>v</mi><mrow><mi>p</mi><mi>r</mi><mi>e</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub><mo>+</mo><msub><mi>μ</mi><mi>k</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mfrac></mrow><annotation encoding="application/x-tex">g_k = \frac{G_k}{1+\exp{(-\sigma  v_{pre,k} + \mu_{k})}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.332438em;vertical-align:-0.972108em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mop">exp</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen">(</span><span class="mord">−</span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">e</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.972108em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>
+
+<p>, where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mrow><mi>p</mi><mi>r</mi><mi>e</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">v_{pre,k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">e</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> is the pre-synaptic neuron’s potential, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>k</mi></msub><mo separator="true">,</mo><msub><mi>σ</mi><mi>k</mi></msub><mo separator="true">,</mo><msub><mi>μ</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">G_k,\sigma_k,\mu_k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> weights of the synapse.</p>
+
+<p>Now that we have a neuron model and a synapse model to let the neurons talk to each other, we still miss a critical part of a neural network: the inputs and outputs. In C. elegans’ nervous system, physical inputs are introduced into the network through sensory neurons, i.e., neurons whose potential is influenced by external stimulus. Analogously, dedicated motor neurons take care of producing a physical response from the information processing inside C. elegans’ nervous system.</p>
+
+<p>In our computational model, we will treat motor neurons as normal neurons and define the network’s output as the potential of these motor neurons.
+Moreover, we define the input variables’ values as the neuron potential of a separate set of sensory neurons. Thus, the potential of these sensory neurons cannot be affected by synapses, as it is determined solely by the values of the inputs. Consequently, sensory neurons can only have outgoing synapses but no incoming links.</p>
+
+<p>As the input and output variable might be differently scaled than the neuron values inside the network, we re-scale the input and output signals by element-wise affine transformations.</p>
+
+<p>Finally, we can write down the full model. Let’s say X are the inputs of the network and Y are the outputs of the network.</p>
+
+<h2 id="is-this-really-used-in-neuroscience">Is this really used in neuroscience?</h2>
+<p>The model introduce above does not originate from our imagination, but is actually taken from the book <em>Methods in Neuronal Modeling - From Ions to Networks</em> <sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote">3</a></sup> by Christof Koch and Idan Segev and has been used in neuroscience research<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote">4</a></sup>]. 
+There is one difference though between our model and the one defined in the neuroscience book. The model described by Koch and Segev models each synapse also via a differential equation, i.e., giving every synapse a possibly different temporal behavior. 
+Our modification replaces the synapse ODEs by their steady-state solution for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>→</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">t \rightarrow \infty</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord">∞</span></span></span></span>. This simplification significantly reduces the memory requirement to store the RNN-state from squared to linear, while losing a bit of expressive power.
+We called the resulting model the Liquid time constant (LTC) model. Why we named it that way and mathematical properties about it can be found in our arXiv preprint<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote">5</a></sup>.</p>
+
+<h2 id="references">References</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>Abbott 1999. <a href="https://www.sciencedirect.com/science/article/abs/pii/S0361923099001616">Lapicque’s introduction of the integrate-and-fire model neuron (1907)</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://neuronaldynamics.epfl.ch/online/Ch2.S2.html">Hodgkin-Huxley Model</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>Koch and Segev <a href="https://mitpress.mit.edu/books/methods-neuronal-modeling-second-edition"><em>Methods in Neuronal Modeling - From Ions to Networks</em></a> <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p>Wicks et al 1996. <a href="https://www.jneurosci.org/content/jneuro/16/12/4017.full.pdf">A Dynamic Network Simulation of the Nematode Tap Withdrawal Circuit: Predictions Concerning Synaptic Function Using Behavioral Criteria</a> <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:5" role="doc-endnote">
+      <p><a href="https://arxiv.org/abs/2006.04439">Liquid Time-constant Networks</a> <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div><a class="u-url" href="/pages/2020/09/15/the_model.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/pages/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/pages/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/pages/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Personal research blog and webpage</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/mlech26l" title="mlech26l"><svg class="svg-icon grey"><use xlink:href="/pages/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/MLech20" title="MLech20"><svg class="svg-icon grey"><use xlink:href="/pages/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
