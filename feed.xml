@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mlech26l.github.io/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mlech26l.github.io/pages/" rel="alternate" type="text/html" /><updated>2020-09-21T10:44:12-05:00</updated><id>https://mlech26l.github.io/pages/feed.xml</id><title type="html">Home</title><subtitle>Personal research blog and webpage</subtitle><entry><title type="html">Part 2 - An unusual ODE-solver</title><link href="https://mlech26l.github.io/pages/2020/09/16/ode_solver.html" rel="alternate" type="text/html" title="Part 2 - An unusual ODE-solver" /><published>2020-09-16T00:00:00-05:00</published><updated>2020-09-16T00:00:00-05:00</updated><id>https://mlech26l.github.io/pages/2020/09/16/ode_solver</id><content type="html" xml:base="https://mlech26l.github.io/pages/2020/09/16/ode_solver.html">&lt;p&gt;This is the third part in a series explaining our recent paper titled XXX.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://mlech26l.github.io/pages/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mlech26l.github.io/pages/" rel="alternate" type="text/html" /><updated>2020-09-21T23:35:21-05:00</updated><id>https://mlech26l.github.io/pages/feed.xml</id><title type="html">Home</title><subtitle>Personal research blog and webpage</subtitle><entry><title type="html">Part 2 - An unusual ODE-solver</title><link href="https://mlech26l.github.io/pages/2020/09/16/ode_solver.html" rel="alternate" type="text/html" title="Part 2 - An unusual ODE-solver" /><published>2020-09-16T00:00:00-05:00</published><updated>2020-09-16T00:00:00-05:00</updated><id>https://mlech26l.github.io/pages/2020/09/16/ode_solver</id><content type="html" xml:base="https://mlech26l.github.io/pages/2020/09/16/ode_solver.html">&lt;p&gt;This is the third part in a series explaining our recent paper titled XXX.
 Here, we will derive an ODE-solver specifically created to deal with the numerical issues of our LTC neural network model.&lt;/p&gt;
 
 &lt;h2 id=&quot;stiff-ordinary-differential-equations&quot;&gt;Stiff ordinary differential equations&lt;/h2&gt;
@@ -187,8 +187,11 @@ One the other hand, it raises the question of whether we lose some important pro
 Biological neural networks appear chaotic at first glance and require extensive research to understand and characterize their wiring principles. 
 Artificial neural networks have a well-defined layer-by-layer structure, which is often guided by computational reasons. For instance, cache efficient dense matrix multiplication algorithms make the use of fully-connected layers very convenient. Consequently, writing a fully-connected layer in Pytorch or TensorFlow requires fewer code lines than creating a sparsely connected layer.&lt;/p&gt;
 
-&lt;p&gt;Given the two discrepancies between artificial and biological neural networks mentioned above, we ask the following question in our research:
-What do we gain something, and what costs do we have to pay if we design more biologically inspired machine learning models?&lt;/p&gt;
+&lt;p&gt;Given the two discrepancies between artificial and biological neural networks mentioned above, we ask the following question in our research:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;What do we gain something, and what costs do we have to pay if we design more biologically inspired machine learning models?&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;But there are already a million papers out there asking similar questions, what’s so special about your research?&lt;/p&gt;
 
