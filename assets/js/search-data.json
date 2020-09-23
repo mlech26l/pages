@@ -117,7 +117,7 @@
   
       ,"page1": {
           "title": "About Me",
-          "content": ". I am a PhD candidate at IST Austria at the research group of Tom Henzinger. My research topics are Machine Learning, Formal Methods, and Robotics. . Publications . ICML (2020) The Natural Lottery Ticket Winner: Reinforcement Learning with Ordinary Neural Circuits. Ramin Hasani, Mathias Lechner, Alexander Amini, Daniela Rus, and Radu Grosu. | IJCAR (2020) An SMT Theory of Fixed-Point Arithmetic. Marek Baranowski, Shaobo He, Mathias Lechner, Thanh Son Nguyen, and Zvonimir Rakamaric [Paper] | ICLR (2020) Learning Representations for binary classification without backpropagation. Mathias Lechner. [Paper] | ICRA (2020) Gershgorin Loss Stabilizes the Recurrent Neural Network Compartment of an End-To-End Robot Learning Scheme. Mathias Lechner, Ramin Hasani, Daniela Rus, and Radu Grosu. [Paper] | TACAS (2020) How Many Bits Does it Take to Quantize Your Neural Network?. Mirco Giacobbe, Thomas A. Henzinger, and Mathias Lechner [Paper] | ICRA (2019) Designing Worm-inspired Neural Networks for Interpretable Robotic Control. Mathias Lechner, Ramin Hasani, Manuel Zimmer, Thomas A. Henzinger, and Radu Grosu [Paper] | . Awards . Distinguished Young Alumnus-Award 2018 Faculty of Informatics at TU Wien .",
+          "content": "This website is powered by fastpages 1. . a blogging platform that natively supports Jupyter notebooks in addition to other formats. &#8617; . |",
           "url": "https://mlech26l.github.io/pages/about/",
           "relUrl": "/about/",
           "date": ""
@@ -141,6 +141,20 @@
   
 
   
+  
+
+  
+  
+
+  
+      ,"page10": {
+          "title": "",
+          "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
+          "url": "https://mlech26l.github.io/pages/robots.txt",
+          "relUrl": "/robots.txt",
+          "date": ""
+      }
+      
   
 
 }
