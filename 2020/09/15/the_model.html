@@ -149,6 +149,8 @@ There is one difference though between our model and the one defined in the neur
 Our modification replaces the synapse ODEs by their steady-state solution for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>→</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">t \rightarrow \infty</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord">∞</span></span></span></span>. This simplification significantly reduces the memory requirement to store the RNN-state from squared to linear, while losing a bit of expressive power.
 We called the resulting model the Liquid time constant (LTC) model. Why we named it that way and mathematical properties about it can be found in our arXiv preprint<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote">5</a></sup>.</p>
 
+<p>In the next post <a href="/pages/2020/09/16/ode_solver.html">An unusual ODE-solver</a>, we will introduce an efficient and stable way of simulating networks of our model.</p>
+
 <h2 id="references">References</h2>
 
 <div class="footnotes" role="doc-endnotes">
